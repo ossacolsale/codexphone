@@ -1,0 +1,54 @@
+name: Publish to Marketplace
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: marketplace-publish
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm install --no-audit --no-fund
+      - run: npm test
+      - name: Build VSIX
+        id: build
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(node -p 'require("./package.json").version')"
+          name="$(node -p 'require("./package.json").name')"
+          [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          [[ "$name" == "codex-kde-connect-notify" ]]
+          [[ "$(node -p 'require("./package.json").publisher')" == "ossacolsale" ]]
+          file="$name-$version.vsix"
+          npm run package:vsix -- --out "$file"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "file=$file" >> "$GITHUB_OUTPUT"
+      - name: Publish exact VSIX with Trusted Publishing
+        env:
+          VSIX: ${{ steps.build.outputs.file }}
+        run: npx --no-install vsce publish --oidc --packagePath "$VSIX"
+      - name: Attach published VSIX to GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          VERSION: ${{ steps.build.outputs.version }}
+          VSIX: ${{ steps.build.outputs.file }}
+          SHA: ${{ github.sha }}
+        run: gh release create "v$VERSION" "$VSIX" --target "$SHA" --title "Codex Phone $VERSION" --generate-notes

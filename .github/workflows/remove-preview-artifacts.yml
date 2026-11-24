@@ -1,0 +1,31 @@
+name: Remove obsolete preview artifacts
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/remove-preview-artifacts.yml'
+  workflow_dispatch:
+permissions:
+  actions: write
+jobs:
+  cleanup:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete the two obsolete preview VSIX artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for id in 14911804356 14909776350; do
+            if result="$(gh api --method DELETE "repos/$GH_REPO/actions/artifacts/$id" 2>&1)"; then
+              echo "Deleted artifact $id"
+            elif [[ "$result" == *"HTTP 404"* ]]; then
+              echo "Artifact $id already absent"
+            else
+              echo "$result" >&2
+              exit 1
+            fi
+          done

@@ -6,8 +6,8 @@ Private Android notifications when Codex finishes a turn in VS Code. Linux deskt
 KDE Connect, no additional cloud service, no telemetry, and no conversation
 contents sent to your phone. Independent project, not affiliated with OpenAI or KDE.
 
-**0.3.1 is the first Marketplace release candidate.** Version 0.3.0 passed a manual
-Linux/Android installation checklist; 0.3.1 restores the original branding.
+**0.3.2 is the first Marketplace release candidate.** Version 0.3.0 passed a manual
+Linux/Android installation checklist; 0.3.2 adds automatic hook cleanup on uninstall.
 
 ## Requirements
 
@@ -40,13 +40,12 @@ cd codexphone
 npm install
 npm test
 npm run package:vsix
-code --install-extension ./codex-kde-connect-notify-0.3.1.vsix
+code --install-extension ./codex-kde-connect-notify-0.3.2.vsix
 ```
 
 Alternatively install the VSIX from Extensions > ... > Install from VSIX.
-The publisher ID is `local-preview` for local builds until the maintainer registers
-and commits the actual Marketplace publisher. After that change, use the registered
-publisher ID in the extension identifier.
+The intended Marketplace publisher ID is `ossacolsale`. Earlier local previews
+used `local-preview`; disable and uninstall the preview before installing this version.
 A DEP0169 warning from the VS Code CLI may be unrelated to this extension;
 this extension does not call url.parse and has no runtime npm dependencies.
 
@@ -66,19 +65,33 @@ the new bundled helper, preserving your selection and deduplication database.
 No previous standalone script is required. If an exact legacy standalone hook
 is detected, the extension offers to replace it after explicit consent.
 
-## Clean uninstall / testing from scratch
+## Uninstall / testing from scratch
 
-Before uninstalling the VS Code extension, open its panel and click
-**Disable Codex notifications**. This removes only the owned Stop handler and
-backs up hooks.json. Restart Codex sessions so they reload the configuration.
-Uninstall the extension using the Extensions view or:
+Uninstall Codex Phone from the Extensions view or use:
 
 ```sh
-code --uninstall-extension local-preview.codex-kde-connect-notify
+code --uninstall-extension ossacolsale.codex-kde-connect-notify
 ```
 
-To test with no selection or stored state, after disabling the hook and closing
-all Codex sessions and VS Code windows, move the state directory to a backup:
+Close all VS Code windows and start VS Code again. VS Code runs the official
+`vscode:uninstall` lifecycle script when the extension is fully uninstalled.
+It removes only the exact Codex Phone Stop command from hooks.json and keeps a
+backup of the previous contents. Restart Codex sessions to reload their hooks.
+Other hooks, device pairing, and the local helper, device ID and deduplication
+database are preserved. No notifications should be triggered by new Codex
+sessions once the hook has been removed.
+
+For immediate removal, use **Disable Codex notifications** in the dashboard
+before uninstalling. For versions older than 0.3.2, this manual step is required.
+The old local preview ID is `local-preview.codex-kde-connect-notify`.
+
+The uninstall lifecycle script uses the same CODEX_HOME environment variable
+as setup (default ~/.codex). If your setup used a custom CODEX_HOME, start and
+restart VS Code with that same environment. Invalid JSON, symlinks and manually
+edited commands are not removed automatically; inspect hooks.json if necessary.
+
+For a clean slate, after hook removal and after closing all Codex and VS Code
+sessions, move the remaining local state to a backup:
 
 ```sh
 codex_home="${CODEX_HOME:-$HOME/.codex}"
@@ -87,10 +100,7 @@ if [ -d "$codex_home/kde-notify" ]; then
 fi
 ```
 
-Never delete the entire Codex directory or hooks.json. Pairing in KDE Connect
-and other Codex hooks remain untouched. Do not restore old hooks or state while
-the new installation is active. Uninstalling the VSIX alone does not remove the
-external hook, because the helper intentionally has a stable path.
+Never delete the entire Codex directory or hooks.json.
 
 ## Privacy and reliability
 
@@ -130,3 +140,16 @@ accepted it, retry manually and check Android's Ping plugin.
 Before publishing, verify the current VSIX, the original logo in the dashboard and
 Extensions view, and a first test ping on real hardware.
 The project is MIT licensed.
+
+## Maintainer release process
+
+Ordinary CI tests and packages on an ephemeral runner without uploading Actions
+artifacts. The manually triggered **Publish to Marketplace** workflow on `main`
+requires Microsoft Marketplace Trusted Publishing (OIDC), not a PAT. In the
+publisher management page create a Trusted Publishing policy for owner
+`ossacolsale`, repository `codexphone`, workflow `publish.yml`, environment blank.
+Confirm that you own the publisher ID in package.json. After reviewing test
+results and manually testing uninstall/restart, run the workflow on `main`.
+It tests, packages, publishes the VSIX and attaches it to a GitHub Release. If
+publication succeeds but release creation fails, recover the GitHub Release
+separately rather than republishing an existing Marketplace version.

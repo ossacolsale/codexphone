@@ -2,8 +2,8 @@
   "name": "codex-kde-connect-notify",
   "displayName": "Codex Phone",
   "description": "Private Android notifications for Codex through KDE Connect on your local network.",
-  "version": "0.3.1",
-  "publisher": "local-preview",
+  "version": "0.3.2",
+  "publisher": "ossacolsale",
   "license": "MIT",
   "engines": {
     "vscode": "^1.90.0"
@@ -103,14 +103,16 @@
   },
   "scripts": {
     "test": "node --test test/*.test.js && python3 -m unittest discover -s test -p 'test_*.py'",
-    "package:vsix": "vsce package --no-dependencies"
+    "package:vsix": "vsce package --no-dependencies",
+    "vscode:uninstall": "node ./src/uninstall.js"
   },
   "devDependencies": {
-    "@vscode/vsce": "^3.5.0"
+    "@vscode/vsce": "4.1.1"
   },
   "icon": "media/icon.png",
   "galleryBanner": {
     "color": "#1E222D",
     "theme": "dark"
-  }
+  },
+  "pricing": "Free"
 }

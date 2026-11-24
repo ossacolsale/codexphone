@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.2 (release candidate)
+
+- Remove the owned Codex Stop hook automatically on complete extension uninstall, preserving other hooks and backing up hooks.json.
+- Keep local device settings and deduplication state for optional reuse.
+- Add uninstall regression tests.
+- Stop storing temporary CI VSIX artifacts; prepare manual OIDC Marketplace publishing.
+
 ## 0.3.1 (release candidate)
 
 - Restore the original 128 × 128 PNG icon in the extension gallery, README and dashboard header.
