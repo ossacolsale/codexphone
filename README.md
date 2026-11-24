@@ -44,7 +44,7 @@ code --install-extension ./codex-kde-connect-notify-0.3.2.vsix
 ```
 
 Alternatively install the VSIX from Extensions > ... > Install from VSIX.
-The intended Marketplace publisher ID is `ossacolsale`. Earlier local previews
+The Marketplace publisher ID is `GiancarloMangiagli`. Earlier local previews
 used `local-preview`; disable and uninstall the preview before installing this version.
 A DEP0169 warning from the VS Code CLI may be unrelated to this extension;
 this extension does not call url.parse and has no runtime npm dependencies.
@@ -70,7 +70,7 @@ is detected, the extension offers to replace it after explicit consent.
 Uninstall Codex Phone from the Extensions view or use:
 
 ```sh
-code --uninstall-extension ossacolsale.codex-kde-connect-notify
+code --uninstall-extension GiancarloMangiagli.codex-kde-connect-notify
 ```
 
 Close all VS Code windows and start VS Code again. VS Code runs the official

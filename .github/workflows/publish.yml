@@ -35,7 +35,7 @@ jobs:
           name="$(node -p 'require("./package.json").name')"
           [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
           [[ "$name" == "codex-kde-connect-notify" ]]
-          [[ "$(node -p 'require("./package.json").publisher')" == "ossacolsale" ]]
+          [[ "$(node -p 'require("./package.json").publisher')" == "GiancarloMangiagli" ]]
           file="$name-$version.vsix"
           npm run package:vsix -- --out "$file"
           echo "version=$version" >> "$GITHUB_OUTPUT"

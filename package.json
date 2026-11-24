@@ -3,7 +3,7 @@
   "displayName": "Codex Phone",
   "description": "Private Android notifications for Codex through KDE Connect on your local network.",
   "version": "0.3.2",
-  "publisher": "ossacolsale",
+  "publisher": "GiancarloMangiagli",
   "license": "MIT",
   "engines": {
     "vscode": "^1.90.0"
