@@ -1,0 +1,13 @@
+:root{font-family:var(--vscode-font-family,system-ui);font-size:var(--vscode-font-size,13px);color:var(--vscode-foreground)}
+*{box-sizing:border-box}body{margin:0;background:var(--vscode-sideBar-background)}main{padding:12px}
+h1{font-size:19px;margin:6px 0}h2{font-size:13px;margin:0 0 9px}p{margin:6px 0;line-height:1.5}
+section{padding:12px;margin:12px 0;border:1px solid var(--vscode-panel-border,#7775);border-radius:8px;background:var(--vscode-editorWidget-background)}
+.heading,.device{display:flex;gap:8px;align-items:center;justify-content:space-between}
+.device{border:1px solid var(--vscode-panel-border,#7775);border-radius:6px;padding:9px;margin:8px 0}
+.info{min-width:0;overflow-wrap:anywhere;flex:1}.info p{font-size:11px}.device button{width:auto;flex-shrink:0}
+button{font:inherit;cursor:pointer;display:block;width:100%;border:1px solid transparent;border-radius:4px;padding:7px 9px;margin:6px 0;color:var(--vscode-button-secondaryForeground);background:var(--vscode-button-secondaryBackground)}
+button.primary{background:var(--vscode-button-background);color:var(--vscode-button-foreground)}
+button:hover:not(:disabled){filter:brightness(1.12)}button:disabled{opacity:.5;cursor:default}button:focus-visible{outline:2px solid var(--vscode-focusBorder);outline-offset:2px}
+.heading button{width:auto;margin:0}.muted{color:var(--vscode-descriptionForeground);font-size:12px}
+.ok{color:var(--vscode-testing-iconPassed,#58a76b)}.warning,.notice{padding:8px;border:1px solid var(--vscode-panel-border,#7775);border-radius:4px;overflow-wrap:anywhere}.warning{border-color:var(--vscode-editorWarning-foreground,#c97)}
+ol{padding-left:20px;line-height:1.55}li{margin:6px 0}[hidden]{display:none!important}

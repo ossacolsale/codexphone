@@ -1,0 +1,12 @@
+.git/**
+.github/**
+.vscode/**
+test/**
+node_modules/**
+**/__pycache__/**
+**/*.pyc
+*.vsix
+*.zip
+*.log
+*.bak
+.gitignore

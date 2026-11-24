@@ -1,0 +1,110 @@
+{
+  "name": "codex-kde-connect-notify",
+  "displayName": "Codex Phone",
+  "description": "Private Android notifications for Codex through KDE Connect on your local network.",
+  "version": "0.3.0",
+  "publisher": "local-preview",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "codex",
+    "kde-connect",
+    "android",
+    "notification",
+    "privacy",
+    "linux"
+  ],
+  "main": "./src/extension.js",
+  "extensionKind": [
+    "ui"
+  ],
+  "activationEvents": [
+    "onView:codexKdeNotify.dashboard"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ossacolsale/codexphone.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ossacolsale/codexphone/issues"
+  },
+  "homepage": "https://github.com/ossacolsale/codexphone#readme",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "codexKdeNotify",
+          "title": "Codex Phone",
+          "icon": "media/sidebar.svg"
+        }
+      ]
+    },
+    "views": {
+      "codexKdeNotify": [
+        {
+          "id": "codexKdeNotify.dashboard",
+          "name": "Android notifications",
+          "type": "webview"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "codexKdeNotify.dashboard",
+        "title": "Open dashboard",
+        "category": "Codex Phone"
+      },
+      {
+        "command": "codexKdeNotify.setup",
+        "title": "Choose Android device",
+        "category": "Codex Phone"
+      },
+      {
+        "command": "codexKdeNotify.refresh",
+        "title": "Refresh devices and status",
+        "category": "Codex Phone"
+      },
+      {
+        "command": "codexKdeNotify.test",
+        "title": "Send test notification",
+        "category": "Codex Phone"
+      },
+      {
+        "command": "codexKdeNotify.installDependencies",
+        "title": "Install Linux dependencies",
+        "category": "Codex Phone"
+      },
+      {
+        "command": "codexKdeNotify.diagnostics",
+        "title": "Show diagnostics",
+        "category": "Codex Phone"
+      },
+      {
+        "command": "codexKdeNotify.remove",
+        "title": "Disable Codex notifications",
+        "category": "Codex Phone"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "codexKdeNotify.refresh",
+          "when": "view == codexKdeNotify.dashboard",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js && python3 -m unittest discover -s test -p 'test_*.py'",
+    "package:vsix": "vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^3.5.0"
+  }
+}
