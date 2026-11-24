@@ -1,11 +1,13 @@
 # Codex Phone
 
+![Codex Phone logo](media/icon.png)
+
 Private Android notifications when Codex finishes a turn in VS Code. Linux desktop,
 KDE Connect, no additional cloud service, no telemetry, and no conversation
 contents sent to your phone. Independent project, not affiliated with OpenAI or KDE.
 
-**0.3.0 is a local beta.** The previous version was tested with real Android
-hardware; this release needs a fresh installation test before Marketplace publication.
+**0.3.1 is the first Marketplace release candidate.** Version 0.3.0 passed a manual
+Linux/Android installation checklist; 0.3.1 restores the original branding.
 
 ## Requirements
 
@@ -38,12 +40,13 @@ cd codexphone
 npm install
 npm test
 npm run package:vsix
-code --install-extension ./codex-kde-connect-notify-0.3.0.vsix
+code --install-extension ./codex-kde-connect-notify-0.3.1.vsix
 ```
 
 Alternatively install the VSIX from Extensions > ... > Install from VSIX.
-The publisher ID remains `local-preview` for compatibility with the beta.
-It must be changed to a registered Marketplace publisher before public release.
+The publisher ID is `local-preview` for local builds until the maintainer registers
+and commits the actual Marketplace publisher. After that change, use the registered
+publisher ID in the extension identifier.
 A DEP0169 warning from the VS Code CLI may be unrelated to this extension;
 this extension does not call url.parse and has no runtime npm dependencies.
 
@@ -124,5 +127,6 @@ accepted it, retry manually and check Android's Ping plugin.
 
 `npm test` runs Node and Python unit tests without using real devices.
 `npm run package:vsix` uses official VSCE. No custom packaging script is needed.
-Do not publish until a clean install and first-ping test pass on real hardware.
+Before publishing, verify the current VSIX, the original logo in the dashboard and
+Extensions view, and a first test ping on real hardware.
 The project is MIT licensed.

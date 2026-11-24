@@ -159,9 +159,10 @@ async function dispatch(action,id){
 function page(w){
   const js=w.asWebviewUri(vscode.Uri.joinPath(context.extensionUri,'media','dashboard.js'));
   const css=w.asWebviewUri(vscode.Uri.joinPath(context.extensionUri,'media','dashboard.css'));
+  const logo=w.asWebviewUri(vscode.Uri.joinPath(context.extensionUri,'media','icon.png'));
   const nonce=crypto.randomBytes(16).toString('hex');
-  return '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src \'none\'; style-src '+w.cspSource+'; script-src \'nonce-'+nonce+'\';"><link rel="stylesheet" href="'+css+'"><title>Codex Phone</title></head><body><main>'+
-    '<h1>Codex Phone</h1><p class="muted">Private Android notifications · KDE Connect · Local network</p>'+
+  return '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src \'none\'; style-src '+w.cspSource+'; img-src '+w.cspSource+'; script-src \'nonce-'+nonce+'\';"><link rel="stylesheet" href="'+css+'"><title>Codex Phone</title></head><body><main>'+
+    '<header class="brand"><img class="brand-logo" src="'+logo+'" width="48" height="48" alt=""><div><h1>Codex Phone</h1><p class="muted">Private Android notifications · KDE Connect · Local network</p></div></header>'+
     '<p id="busy" role="status">Checking system…</p><p id="notice" role="status" hidden></p>'+
     '<section><h2>Setup</h2><div id="checks"></div><button data-action="deps">Install Linux dependencies</button></section>'+
     '<section><div class="heading"><h2>Your phone</h2><button data-action="refresh">Refresh</button></div><p id="selected" class="muted"></p><div id="devices"></div><button data-action="choose">Choose from list…</button></section>'+

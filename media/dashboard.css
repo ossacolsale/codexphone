@@ -11,3 +11,5 @@ button:hover:not(:disabled){filter:brightness(1.12)}button:disabled{opacity:.5;c
 .heading button{width:auto;margin:0}.muted{color:var(--vscode-descriptionForeground);font-size:12px}
 .ok{color:var(--vscode-testing-iconPassed,#58a76b)}.warning,.notice{padding:8px;border:1px solid var(--vscode-panel-border,#7775);border-radius:4px;overflow-wrap:anywhere}.warning{border-color:var(--vscode-editorWarning-foreground,#c97)}
 ol{padding-left:20px;line-height:1.55}li{margin:6px 0}[hidden]{display:none!important}
+
+.brand{display:flex;align-items:center;gap:11px;margin:6px 0 14px}.brand>div{min-width:0}.brand-logo{width:48px;height:48px;flex:0 0 48px;border-radius:10px}.brand h1{margin:0 0 3px}.brand p{margin:0}

@@ -2,7 +2,7 @@
   "name": "codex-kde-connect-notify",
   "displayName": "Codex Phone",
   "description": "Private Android notifications for Codex through KDE Connect on your local network.",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "publisher": "local-preview",
   "license": "MIT",
   "engines": {
@@ -67,7 +67,8 @@
       {
         "command": "codexKdeNotify.refresh",
         "title": "Refresh devices and status",
-        "category": "Codex Phone"
+        "category": "Codex Phone",
+        "icon": "$(refresh)"
       },
       {
         "command": "codexKdeNotify.test",
@@ -106,5 +107,10 @@
   },
   "devDependencies": {
     "@vscode/vsce": "^3.5.0"
+  },
+  "icon": "media/icon.png",
+  "galleryBanner": {
+    "color": "#1E222D",
+    "theme": "dark"
   }
 }

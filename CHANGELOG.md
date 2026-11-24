@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.1 (release candidate)
+
+- Restore the original 128 × 128 PNG icon in the extension gallery, README and dashboard header.
+- Keep the Activity Bar icon monochrome and theme-compatible.
+- Load the dashboard logo only from bundled local resources.
+- Restore the refresh command's toolbar icon.
+
 ## 0.3.0 (local beta)
 
 - English UI, command labels, notification text and documentation.
